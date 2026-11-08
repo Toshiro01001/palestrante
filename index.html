@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Ponto Vermelho | Palestras e vídeos em Cuiabá</title>
+  <meta name="description" content="Site de demonstração de um palestrante e videomaker fictício em Cuiabá: orçamento de palestra e de vídeo com preço e prazo na hora, mural de trabalhos com visor simulado, agenda de datas livres com pré-reserva e convite com resumo na tela. Feito pela Mil e Uma Linhas!.">
+  <meta name="theme-color" content="#DCE1E3">
+  <link rel="canonical" href="https://toshiro01001.github.io/palestrante/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/courier-prime-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topo">
+    <div class="miolo topo-miolo">
+      <a class="marca" href="#inicio" aria-label="Ponto Vermelho, início">
+        <svg class="marca-sinal" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect x="10" y="3" width="12" height="17" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M6 15a10 10 0 0 0 20 0M16 25v4M11 29h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 9h8M12 13h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="marca-nome">Ponto Vermelho</span>
+      </a>
+      <button class="menu-botao" type="button" id="menu-botao" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="menu" id="menu" aria-label="Seções do site">
+        <ul>
+          <li><a href="#orcamento">Orçamento</a></li>
+          <li><a href="#trabalhos">Trabalhos</a></li>
+          <li><a href="#agenda">Agenda</a></li>
+          <li><a href="#convite">Convite</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <section class="hero" id="inicio" aria-labelledby="titulo-hero">
+      <div class="regua" aria-hidden="true"></div>
+      <div class="miolo hero-miolo">
+        <div class="hero-texto">
+          <p class="hero-assinatura">Bruno Vilela, palestrante e videomaker em Cuiabá</p>
+          <h1 id="titulo-hero">Falo no palco. <span class="hero-frase2">Filmo para quem não estava na sala.</span></h1>
+          <p class="hero-apoio">Dou palestras para equipes e eventos e produzo vídeos para empresas. Neste site você monta o orçamento de uma palestra ou de um vídeo e vê o preço e o prazo na hora.</p>
+          <div class="hero-acoes">
+            <a class="botao botao-principal" href="#orcamento">Montar meu orçamento</a>
+            <a class="botao botao-contorno" href="#trabalhos">Ver trabalhos</a>
+          </div>
+        </div>
+        <figure class="hero-moldura">
+          <img class="hero-foto" src="img/hero.webp" width="1600" height="1067" alt="Ilustração provisória: um microfone de estúdio ao lado de uma luz vermelha acesa, com o cabo ondulando sobre a parede e, na base, uma linha do tempo de edição de vídeo com blocos azuis.">
+        </figure>
+      </div>
+    </section>
+
+    <section class="secao" id="orcamento" aria-labelledby="titulo-orcamento">
+      <div class="miolo">
+        <header class="cabeca">
+          <h2 id="titulo-orcamento">Quanto custa e quando fica pronto</h2>
+          <p>Escolha o que você precisa e mexa nas opções. O total e o prazo mudam na hora, na folha ao lado.</p>
+        </header>
+
+        <div class="orc">
+          <form class="orc-form" id="orc-form" novalidate>
+            <fieldset class="escolha" id="orc-tipo">
+              <legend>O que você precisa?</legend>
+              <label class="escolha-item"><input type="radio" name="servico" value="palestra" checked><span>Uma palestra</span></label>
+              <label class="escolha-item"><input type="radio" name="servico" value="video"><span>Um vídeo</span></label>
+            </fieldset>
+
+            <div id="bloco-palestra" class="bloco">
+              <div class="campo">
+                <label for="p-tema">Tema</label>
+                <select id="p-tema" name="tema"></select>
+              </div>
+              <div class="campo">
+                <label for="p-duracao">Duração</label>
+                <select id="p-duracao" name="duracao"></select>
+              </div>
+              <fieldset class="campo campo-radios">
+                <legend>Formato</legend>
+                <label class="radio"><input type="radio" name="formato" value="presencial" checked><span>Presencial</span></label>
+                <label class="radio"><input type="radio" name="formato" value="online"><span>Online, ao vivo</span></label>
+              </fieldset>
+              <div class="campo">
+                <label for="p-plateia">Quantas pessoas vão assistir</label>
+                <select id="p-plateia" name="plateia"></select>
+              </div>
+              <div class="campo">
+                <label for="p-desloc">Onde será</label>
+                <select id="p-desloc" name="deslocamento"></select>
+                <p class="campo-nota" id="p-desloc-nota">Só conta quando a palestra é presencial.</p>
+              </div>
+              <label class="marcar"><input type="checkbox" id="p-gravar" name="gravar"><span>Quero a palestra gravada em vídeo (mais R$&nbsp;900)</span></label>
+            </div>
+
+            <div id="bloco-video" class="bloco" hidden>
+              <div class="campo">
+                <label for="v-tipo">Tipo de vídeo</label>
+                <select id="v-tipo" name="vtipo"></select>
+              </div>
+              <div class="campo">
+                <label for="v-min">Minutos do vídeo pronto</label>
+                <input id="v-min" name="vmin" type="number" inputmode="numeric" min="1" max="30" value="3">
+                <p class="campo-nota" id="v-min-nota">De 1 a 30 minutos.</p>
+              </div>
+              <div class="campo">
+                <label for="v-diarias">Dias de gravação</label>
+                <select id="v-diarias" name="vdiarias"></select>
+                <p class="campo-nota">Cada dia de gravação é uma diária de câmera e áudio.</p>
+              </div>
+              <label class="marcar"><input type="checkbox" id="v-drone" name="vdrone"><span>Imagens de drone (mais R$&nbsp;650 por diária)</span></label>
+              <label class="marcar"><input type="checkbox" id="v-legenda" name="vlegenda" checked><span>Legendas no vídeo (R$&nbsp;18 por minuto)</span></label>
+            </div>
+          </form>
+
+          <aside class="folha" aria-labelledby="folha-titulo">
+            <h3 id="folha-titulo">Sua folha de orçamento</h3>
+            <div id="orc-resultado" aria-live="polite" aria-atomic="true">
+              <ul class="folha-linhas" id="orc-linhas"></ul>
+              <p class="folha-total-rotulo">Total estimado</p>
+              <p class="folha-total" id="orc-total">R$ 0</p>
+              <p class="folha-prazo" id="orc-prazo"></p>
+            </div>
+            <button class="botao botao-contorno" type="button" id="orc-levar">Levar este orçamento para o convite</button>
+            <p class="folha-aviso">Valores e prazos inventados para a demonstração. Nenhum pedido é enviado.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao secao-escura" id="trabalhos" aria-labelledby="titulo-trabalhos">
+      <div class="miolo">
+        <header class="cabeca">
+          <h2 id="titulo-trabalhos">Trabalhos feitos</h2>
+          <p>Filtre por tipo e toque em um trabalho para abrir o visor. O visor é de mentira: ele só anima a barra de reprodução, não há vídeo de verdade.</p>
+        </header>
+
+        <div class="filtros" id="filtros" role="group" aria-label="Filtrar trabalhos por tipo"></div>
+        <p class="filtro-contagem" id="filtro-contagem" aria-live="polite"></p>
+        <ul class="mural" id="mural"></ul>
+      </div>
+    </section>
+
+    <section class="secao" id="agenda" aria-labelledby="titulo-agenda">
+      <div class="miolo">
+        <header class="cabeca">
+          <h2 id="titulo-agenda">Datas livres na minha agenda</h2>
+          <p>Toque em um dia livre, escolha o período e faça uma pré-reserva. É uma simulação: ninguém recebe o seu pedido.</p>
+        </header>
+
+        <div class="agenda">
+          <div class="cal" id="cal">
+            <div class="cal-topo">
+              <button class="cal-seta" type="button" id="cal-ant" aria-label="Mês anterior">&lsaquo;</button>
+              <h3 class="cal-mes" id="cal-mes" aria-live="polite"></h3>
+              <button class="cal-seta" type="button" id="cal-prox" aria-label="Próximo mês">&rsaquo;</button>
+            </div>
+            <div class="cal-grade" id="cal-grade" role="group" aria-labelledby="cal-mes"></div>
+            <ul class="cal-legenda" aria-label="Legenda do calendário">
+              <li><span class="amostra amostra-livre" aria-hidden="true"></span>Livre</li>
+              <li><span class="amostra amostra-cheia" aria-hidden="true"></span>Ocupada</li>
+              <li><span class="amostra amostra-minha" aria-hidden="true"></span>Sua pré-reserva</li>
+            </ul>
+          </div>
+
+          <div class="reserva">
+            <h3>Pré-reserva</h3>
+            <p id="reserva-vazio">Nenhum dia escolhido ainda. Toque em um dia livre no calendário.</p>
+            <form id="reserva-form" hidden novalidate>
+              <p class="reserva-data" id="reserva-data"></p>
+              <fieldset class="campo campo-radios">
+                <legend>Período</legend>
+                <label class="radio"><input type="radio" name="periodo" value="manhã" checked><span>Manhã</span></label>
+                <label class="radio"><input type="radio" name="periodo" value="tarde"><span>Tarde</span></label>
+                <label class="radio"><input type="radio" name="periodo" value="noite"><span>Noite</span></label>
+              </fieldset>
+              <button class="botao botao-tinta" type="submit">Pré-reservar este dia</button>
+            </form>
+            <p class="reserva-ok" id="reserva-ok" role="status" hidden></p>
+            <div class="reserva-lista" id="reserva-lista-bloco" hidden>
+              <h4>Suas pré-reservas neste navegador</h4>
+              <ul id="reserva-lista"></ul>
+              <button class="botao botao-contorno" type="button" id="reserva-limpar">Apagar todas</button>
+            </div>
+            <p class="reserva-aviso">As pré-reservas ficam guardadas só neste aparelho (localStorage), para você ver o calendário se lembrar delas. Apague quando quiser.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao secao-folha" id="convite" aria-labelledby="titulo-convite">
+      <div class="miolo">
+        <header class="cabeca">
+          <h2 id="titulo-convite">Me convide</h2>
+          <p>Conte o que você quer fazer. Ao enviar, o resumo aparece aqui mesmo na tela. Nada sai do seu aparelho.</p>
+        </header>
+
+        <div class="convite">
+          <form class="convite-form folha-papel" id="convite-form" novalidate>
+            <div class="campo">
+              <label for="c-nome">Seu nome</label>
+              <input id="c-nome" name="nome" type="text" autocomplete="name" aria-describedby="e-nome">
+              <p class="erro" id="e-nome" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="c-email">E-mail</label>
+              <input id="c-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="e-email">
+              <p class="erro" id="e-email" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="c-tel">Telefone com DDD <span class="opcional">(se quiser)</span></label>
+              <input id="c-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="e-tel">
+              <p class="erro" id="e-tel" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="c-empresa">Empresa ou evento</label>
+              <input id="c-empresa" name="empresa" type="text" autocomplete="organization" aria-describedby="e-empresa">
+              <p class="erro" id="e-empresa" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="c-assunto">Do que você precisa</label>
+              <select id="c-assunto" name="assunto" aria-describedby="e-assunto">
+                <option value="">Escolha uma opção</option>
+                <option value="uma palestra">Uma palestra</option>
+                <option value="um vídeo">Um vídeo</option>
+                <option value="uma palestra e um vídeo">Uma palestra e um vídeo</option>
+              </select>
+              <p class="erro" id="e-assunto" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="c-mensagem">Conte em poucas linhas</label>
+              <textarea id="c-mensagem" name="mensagem" rows="5" aria-describedby="e-mensagem"></textarea>
+              <p class="erro" id="e-mensagem" hidden></p>
+            </div>
+            <label class="marcar"><input type="checkbox" id="c-aceite" name="aceite" aria-describedby="e-aceite"><span>Entendo que este site é uma demonstração e que nada será enviado.</span></label>
+            <p class="erro" id="e-aceite" hidden></p>
+            <button class="botao botao-principal" type="submit">Ver o resumo do convite</button>
+          </form>
+
+          <div class="resumo" id="resumo" tabindex="-1" aria-live="polite">
+            <p class="resumo-vazio" id="resumo-vazio">O resumo do seu convite vai aparecer aqui.</p>
+            <div id="resumo-corpo" hidden>
+              <h3>Resumo do convite</h3>
+              <p class="resumo-selo">Simulação: nada foi enviado</p>
+              <dl id="resumo-lista"></dl>
+              <button class="botao botao-contorno" type="button" id="resumo-novo">Fazer outro convite</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao secao-como" id="como-funciona" aria-labelledby="titulo-como">
+      <div class="miolo como">
+        <header class="cabeca">
+          <h2 id="titulo-como">Como isto funciona</h2>
+        </header>
+        <div class="como-colunas">
+          <div>
+            <h3>Para quem não é de tecnologia</h3>
+            <p>Este site é um modelo de como o site de um palestrante e videomaker pode ser. O orçamento calcula o preço e o prazo sozinho. O mural mostra os trabalhos e tem um visor de brincadeira. A agenda mostra dias livres e deixa você pré-reservar um deles. O convite confere se você preencheu direito e mostra um resumo.</p>
+            <p>Nada disso é de verdade: o palestrante, os clientes, as datas e os preços foram inventados, e nenhum pedido sai do seu aparelho.</p>
+          </div>
+          <div>
+            <h3>Como funciona por dentro</h3>
+            <p>Cada função é um pequeno programa que roda no seu navegador. Os preços ficam em uma tabela. Quando você muda uma opção, o programa refaz a conta e escreve o resultado na tela. As datas ocupadas da agenda seguem uma regra fixa, por isso são sempre as mesmas. As pré-reservas ficam guardadas no seu aparelho, e só nele.</p>
+            <p>Quer um site assim para o seu negócio? A <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a> faz sites e sistemas sob medida.</p>
+          </div>
+        </div>
+        <details class="tecnico">
+          <summary>Detalhes técnicos</summary>
+          <ul>
+            <li>HTML, CSS e JavaScript puros. Sem framework, sem CDN, sem analytics e sem fonte externa.</li>
+            <li>Fontes locais em <code>fonts/</code>: Bricolage Grotesque (títulos e texto) e Courier Prime (tempos e rótulos), ambas com licença SIL OFL.</li>
+            <li>Política de segurança de conteúdo (CSP) restritiva: <code>default-src 'self'</code>, sem script nem estilo embutido, <code>connect-src 'none'</code> e <code>form-action 'none'</code>.</li>
+            <li>Preços e trabalhos em <code>js/dados.js</code>; a lógica em <code>js/app.js</code>. As contas são funções puras que recebem as escolhas e devolvem total e prazo.</li>
+            <li>O visor do mural é um <code>&lt;dialog&gt;</code> com um controle deslizante e um relógio simulado. Não existe arquivo de vídeo.</li>
+            <li>O único dado guardado é a lista de pré-reservas, em <code>localStorage</code> com a chave <code>pv-prereservas</code>.</li>
+            <li>Testes automatizados com Playwright em <code>tests/site.cjs</code> (computador, iPhone 13 e 320 px).</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="miolo rodape-miolo">
+      <p class="rodape-nome">Ponto Vermelho</p>
+      <p>Palestras e vídeos, Cuiabá, Mato Grosso. Tudo neste site é fictício.</p>
+      <p>Site de demonstração feito pela <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a></p>
+    </div>
+  </footer>
+
+  <p class="faixa-demo">Demonstração da <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a> com dados fictícios. Nada é enviado.</p>
+
+  <dialog class="visor" id="visor" aria-labelledby="visor-titulo">
+    <div class="visor-caixa">
+      <button class="visor-fechar" type="button" id="visor-fechar">Fechar</button>
+      <h3 id="visor-titulo"></h3>
+      <p class="visor-meta" id="visor-meta"></p>
+      <div class="visor-tela">
+        <img id="visor-img" src="img/hero.webp" alt="" width="1280" height="720">
+        <span class="visor-tempo" id="visor-tempo">00:00 / 00:00</span>
+      </div>
+      <div class="visor-linha" aria-hidden="true">
+        <div class="visor-clipes"></div>
+        <div class="visor-cabeca" id="visor-cabeca"></div>
+      </div>
+      <div class="visor-controles">
+        <button class="botao botao-contorno" type="button" id="visor-play">Reproduzir</button>
+        <button class="botao botao-contorno" type="button" id="visor-reiniciar">Voltar ao início</button>
+        <label class="visor-pos"><span class="so-leitor">Posição do vídeo</span><input type="range" id="visor-pos" min="0" max="1000" value="0"></label>
+      </div>
+      <p class="visor-nota" id="visor-nota"></p>
+      <p class="visor-aviso">Visor de demonstração: a barra anda sozinha, mas não existe vídeo por trás.</p>
+    </div>
+  </dialog>
+
+  <script src="js/dados.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
