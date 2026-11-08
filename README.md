@@ -62,7 +62,7 @@ Cada função é um pequeno programa que roda no navegador de quem visita. Os pr
 - Orçamento de vídeo: `minutos x valor por minuto do tipo + diárias x valor da diária`, mais drone (por diária) e legendas (por minuto). O prazo soma dias úteis de edição e diz a data de entrega "se gravarmos hoje".
 - Visor do mural: `<dialog>` com controle deslizante e relógio simulado. Não existe arquivo de vídeo. Com movimento reduzido, o relógio avança de segundo em segundo.
 - Agenda: a regra de ocupação depende só da data, então o calendário é sempre igual. Pré-reservas em `localStorage` (chave `pv-prereservas`).
-- Imagens: `tools/gerar-imagens.py` (Pillow) gera `img/hero.webp` e os pôsteres. O `hero.webp` é provisório e será trocado por uma foto.
+- Imagens: `img/hero.webp` é uma foto gerada por IA no Canva (1620x1080). `tools/gerar-imagens.py` (Pillow) gera só os pôsteres do mural; o script ainda recria um hero provisório, que não deve ser usado no lugar da foto.
 - Acessibilidade: contraste AA, foco visível, navegação por teclado, `alt` nas imagens, `lang="pt-BR"`, rótulos em todos os campos e mensagens de erro ligadas aos campos.
 
 ## Como rodar

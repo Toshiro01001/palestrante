@@ -218,6 +218,6 @@ def posters():
 
 if __name__ == "__main__":
     os.makedirs(PASTA, exist_ok=True)
-    hero()
+    # hero() desativado: img/hero.webp agora é a foto do Canva e não deve ser recriada
     posters()
     print("imagens geradas em", os.path.abspath(PASTA))

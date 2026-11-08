@@ -81,7 +81,7 @@ async function testarTela(browser, tela) {
   await page.waitForTimeout(1300);
   await capturar(page, "capa-" + tela.nome);
   await verificarLayout(page, "abertura");
-  ok(await page.evaluate(() => { const i = document.querySelector(".hero-foto"); return i && i.complete && i.naturalWidth === 1600; }), "hero: foto carregada com 1600px de largura");
+  ok(await page.evaluate(() => { const i = document.querySelector(".hero-foto"); return i && i.complete && i.naturalWidth === 1620; }), "hero: foto carregada com 1620px de largura");
   ok((await page.locator(".faixa-demo a[href='https://mileumalinhas.com.br']").count()) === 1, "faixa de demonstração com link da Mil e Uma Linhas!");
   const fonteOk = await page.evaluate(async () => { await document.fonts.ready; return document.fonts.check("700 20px Bricolage") && document.fonts.check("400 16px 'Courier Prime'"); });
   ok(fonteOk, "fontes locais carregadas");
