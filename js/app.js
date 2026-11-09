@@ -85,6 +85,7 @@
     var primeira = somaDias(hoje(), ant);
     return {
       servico: "palestra", total: total, linhas: linhas,
+      semanas: Math.ceil(ant / 7) + 1, fases: ["Briefing", "Preparação", "Ensaio", "Palestra"],
       prazo: "Preciso de " + ant + " dias de antecedência. Primeira data possível: " + dataCurta(primeira) + ".",
       resumo: "Palestra \"" + tema.nome + "\", " + dur.nome + ", " + fmt.nome.toLowerCase() + ", " + pl.nome.toLowerCase() + (presencial ? ", " + ds.nome : "") + (e.gravar ? ", com gravação em vídeo" : "") + ". Total estimado: " + brl(total) + ". " + "Antecedência mínima: " + ant + " dias."
     };
@@ -106,6 +107,7 @@
     var entrega = somaDiasUteis(hoje(), dias);
     return {
       servico: "video", total: total, linhas: linhas,
+      semanas: Math.ceil(dias / 5) + 1, fases: ["Gravação", "Edição", "Revisão", "Entrega"],
       prazo: "Entrega em " + dias + " dias úteis depois da gravação. Se gravarmos hoje: " + dataCurta(entrega) + ".",
       resumo: "Vídeo \"" + tipo.nome.split(" (")[0].toLowerCase() + "\" de " + min + " min, " + diarias + (diarias === 1 ? " diária" : " diárias") + " de gravação" + (e.vdrone ? ", com drone" : "") + (e.vlegenda ? ", com legendas" : "") + ". Total estimado: " + brl(total) + ". Entrega em " + dias + " dias úteis."
     };
@@ -120,6 +122,46 @@
       vtipo: $("v-tipo").value, vmin: $("v-min").value.trim(), vdiarias: $("v-diarias").value,
       vdrone: $("v-drone").checked, vlegenda: $("v-legenda").checked
     };
+  }
+
+  /* Gráfico de barras do prazo: uma barra por semana, da primeira (gravação ou briefing)
+     até a semana de entrega (ou da palestra). Alturas e colunas entram por CSSOM (el.style),
+     o que a CSP permite, sem atributo style no HTML. */
+  function faseDaSemana(i, n) {
+    if (i === n - 1) { return 4; }
+    if (i === 0) { return 1; }
+    if (i === n - 2) { return 3; }
+    return 2;
+  }
+  function desenharBarras(r) {
+    var bloco = $("orc-barras"), grade = $("orc-barras-grade");
+    grade.innerHTML = "";
+    if (!r) { bloco.hidden = true; return; }
+    bloco.hidden = false;
+    var n = Math.max(2, r.semanas);
+    grade.style.gridTemplateColumns = "repeat(" + n + ", minmax(0, 1fr))";
+    var contagem = [0, 0, 0, 0, 0];
+    for (var i = 0; i < n; i++) {
+      var fase = faseDaSemana(i, n);
+      contagem[fase]++;
+      var col = document.createElement("div"); col.className = "barras-col";
+      var barra = document.createElement("span"); barra.className = "barras-barra fase-" + fase;
+      barra.style.height = Math.round(28 + 72 * (i + 1) / n) + "%";
+      var rot = document.createElement("span"); rot.className = "barras-rotulo";
+      // Com muitas semanas, numera só as pares e a última, para os números não se encostarem
+      var mostra = n <= 10 || i === n - 1 || (i % 2 === 0 && i !== n - 2);
+      rot.textContent = n > 10 ? (mostra ? String(i + 1) : "") : "S" + (i + 1);
+      col.appendChild(barra); col.appendChild(rot); grade.appendChild(col);
+    }
+    for (var f = 1; f <= 4; f++) {
+      $("orc-fase-" + f).textContent = r.fases[f - 1];
+      $("orc-fase-" + f).parentNode.hidden = contagem[f] === 0;
+    }
+    var partes = [];
+    for (var k = 1; k <= 4; k++) {
+      if (contagem[k]) { partes.push(r.fases[k - 1].toLowerCase() + " " + contagem[k] + (contagem[k] === 1 ? " semana" : " semanas")); }
+    }
+    bloco.setAttribute("aria-label", "Linha do prazo em " + n + " semanas: " + partes.join(", ") + ".");
   }
 
   function atualizarOrcamento() {
@@ -146,6 +188,7 @@
       $("orc-total").textContent = "R$ 0";
       $("orc-prazo").textContent = "Digite de 1 a 30 minutos para ver o preço e o prazo.";
       $("orc-levar").disabled = true;
+      desenharBarras(null);
       return;
     }
     $("orc-levar").disabled = false;
@@ -158,6 +201,7 @@
     });
     $("orc-total").textContent = brl(r.total);
     $("orc-prazo").textContent = r.prazo;
+    desenharBarras(r);
   }
 
   function iniciarOrcamento() {
@@ -210,14 +254,15 @@
       var b = document.createElement("button");
       b.type = "button"; b.className = "cartao"; b.dataset.id = t.id;
       b.setAttribute("aria-haspopup", "dialog");
-      var poster = document.createElement("span"); poster.className = "cartao-poster";
+      var rotulo = document.createElement("span"); rotulo.className = "cartao-rotulo"; rotulo.textContent = porId(D.tipos, t.tipo).singular;
+      var poster = document.createElement("span"); poster.className = "cartao-poster" + (t.recorte ? " cartao-poster-" + t.recorte + " poster-" + t.tipo : "");
       var img = document.createElement("img");
-      img.src = t.poster; img.alt = t.alt; img.width = 1280; img.height = 720; img.loading = "lazy";
+      img.src = t.poster; img.alt = t.alt; img.width = 1456; img.height = 816; img.loading = "lazy"; img.decoding = "async";
       poster.appendChild(img);
-      var meta = document.createElement("span"); meta.className = "cartao-meta"; meta.textContent = porId(D.tipos, t.tipo).singular + " · " + fmtTempo(t.duracao);
+      var meta = document.createElement("span"); meta.className = "cartao-meta"; meta.textContent = "Duração " + fmtTempo(t.duracao);
       var tit = document.createElement("span"); tit.className = "cartao-titulo"; tit.textContent = t.titulo;
       var cli = document.createElement("span"); cli.className = "cartao-cliente"; cli.textContent = t.cliente + " (fictício)";
-      b.appendChild(poster); b.appendChild(meta); b.appendChild(tit); b.appendChild(cli);
+      b.appendChild(rotulo); b.appendChild(poster); b.appendChild(meta); b.appendChild(tit); b.appendChild(cli);
       li.appendChild(b); mural.appendChild(li);
     });
     filtros.addEventListener("click", function (ev) {
@@ -481,12 +526,14 @@
       $("resumo-vazio").hidden = true;
       $("resumo-corpo").hidden = false;
       var res = $("resumo");
+      res.classList.add("resumo-cheio");
       res.scrollIntoView({ behavior: reduzMovimento ? "auto" : "smooth", block: "nearest" });
       res.focus({ preventScroll: true });
     });
     $("resumo-novo").addEventListener("click", function () {
       f.reset();
       $("resumo-corpo").hidden = true; $("resumo-vazio").hidden = false;
+      $("resumo").classList.remove("resumo-cheio");
       $("c-nome").focus();
     });
   }

@@ -30,8 +30,13 @@ async function verificarLayout(page, nome) {
     document.querySelectorAll("body *").forEach((e) => {
       if (!e.offsetParent && e.tagName !== "BODY" && getComputedStyle(e).position !== "fixed") { return; }
       if (e.closest("dialog:not([open])")) { return; }
-      const r = e.getBoundingClientRect();
+      let r = e.getBoundingClientRect();
       if (r.width <= 1 || r.height <= 1) { return; }
+      // Imagem ampliada dentro de um contêiner que recorta (overflow hidden/clip): vale o retângulo do contêiner
+      for (let a = e.parentElement; a && a !== document.body; a = a.parentElement) {
+        const ox = getComputedStyle(a).overflowX;
+        if (ox === "hidden" || ox === "clip") { const ra = a.getBoundingClientRect(); if (ra.right < r.right) { r = ra; } break; }
+      }
       if (e.classList.contains("so-leitor") || e.classList.contains("pular")) { return; }
       if (r.right > larguraJanela + 1 && getComputedStyle(e).position !== "fixed") {
         estourados.push(e.tagName.toLowerCase() + (e.id ? "#" + e.id : "") + (typeof e.className === "string" && e.className ? "." + e.className.split(" ")[0] : ""));

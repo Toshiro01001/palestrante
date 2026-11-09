@@ -45,7 +45,7 @@
       <div class="regua" aria-hidden="true"></div>
       <div class="miolo hero-miolo">
         <div class="hero-texto">
-          <p class="hero-assinatura">Bruno Vilela, palestrante e videomaker em Cuiabá</p>
+          <p class="hero-assinatura"><span class="status" aria-hidden="true"><span class="status-ponto"></span>Gravando</span><span>Bruno Vilela, palestrante e videomaker em Cuiabá</span></p>
           <h1 id="titulo-hero">Falo no palco. <span class="hero-frase2">Filmo para quem não estava na sala.</span></h1>
           <p class="hero-apoio">Dou palestras para equipes e eventos e produzo vídeos para empresas. Neste site você monta o orçamento de uma palestra ou de um vídeo e vê o preço e o prazo na hora.</p>
           <div class="hero-acoes">
@@ -54,7 +54,16 @@
           </div>
         </div>
         <figure class="hero-moldura">
-          <img class="hero-foto" src="img/hero.webp" width="1620" height="1080" alt="Microfone de estúdio em primeiro plano e, ao fundo, uma câmera sobre tripé com a luz vermelha de gravação acesa.">
+          <img class="hero-foto" src="img/hero.webp" width="1620" height="1080" alt="Microfone de estúdio em primeiro plano e, ao fundo, uma câmera sobre tripé com a luz vermelha de gravação acesa." decoding="async" fetchpriority="high">
+          <div class="formas" aria-hidden="true">
+            <span class="forma forma-circulo"></span>
+            <span class="forma forma-quadrado"></span>
+            <span class="forma forma-triangulo"></span>
+            <span class="forma forma-ponto"></span>
+            <span class="forma forma-moldura"></span>
+          </div>
+          <p class="selo selo-claro" aria-hidden="true">Palestras de 30 a 120 min</p>
+          <p class="selo selo-escuro" aria-hidden="true">Vídeo em 4K</p>
         </figure>
       </div>
     </section>
@@ -62,6 +71,7 @@
     <section class="secao" id="orcamento" aria-labelledby="titulo-orcamento">
       <div class="miolo">
         <header class="cabeca">
+          <p class="sobretitulo"><span>Orçamento</span><span class="sobretitulo-traco" aria-hidden="true"></span><span>Preço e prazo na hora</span></p>
           <h2 id="titulo-orcamento">Quanto custa e quando fica pronto</h2>
           <p>Escolha o que você precisa e mexa nas opções. O total e o prazo mudam na hora, na folha ao lado.</p>
         </header>
@@ -70,8 +80,8 @@
           <form class="orc-form" id="orc-form" novalidate>
             <fieldset class="escolha" id="orc-tipo">
               <legend>O que você precisa?</legend>
-              <label class="escolha-item"><input type="radio" name="servico" value="palestra" checked><span>Uma palestra</span></label>
-              <label class="escolha-item"><input type="radio" name="servico" value="video"><span>Um vídeo</span></label>
+              <label class="escolha-item"><input type="radio" name="servico" value="palestra" checked><span class="escolha-tile"><span class="escolha-indice" aria-hidden="true">01</span><span class="escolha-titulo">Uma palestra</span><span class="escolha-texto">Tema, duração, formato, plateia e lugar.</span></span></label>
+              <label class="escolha-item"><input type="radio" name="servico" value="video"><span class="escolha-tile"><span class="escolha-indice" aria-hidden="true">02</span><span class="escolha-titulo">Um vídeo</span><span class="escolha-texto">Tipo, minutos, diárias, drone e legendas.</span></span></label>
             </fieldset>
 
             <div id="bloco-palestra" class="bloco">
@@ -120,6 +130,10 @@
             </div>
           </form>
 
+          <div class="orc-lado">
+          <figure class="orc-foto">
+            <img src="img/bruno-palco.webp" width="1152" height="1440" alt="Palestrante de perfil, em contraluz, segurando um microfone no canto de um palco escuro, com o cabo do microfone ondulando no chão cinza." loading="lazy" decoding="async">
+          </figure>
           <aside class="folha" aria-labelledby="folha-titulo">
             <h3 id="folha-titulo">Sua folha de orçamento</h3>
             <div id="orc-resultado" aria-live="polite" aria-atomic="true">
@@ -128,9 +142,19 @@
               <p class="folha-total" id="orc-total">R$ 0</p>
               <p class="folha-prazo" id="orc-prazo"></p>
             </div>
+            <div class="barras" id="orc-barras" role="img" aria-label="">
+              <div class="barras-grade" id="orc-barras-grade"></div>
+              <ul class="barras-legenda" aria-hidden="true">
+                <li><span class="barras-ponto fase-1"></span><span id="orc-fase-1">Gravação</span></li>
+                <li><span class="barras-ponto fase-2"></span><span id="orc-fase-2">Edição</span></li>
+                <li><span class="barras-ponto fase-3"></span><span id="orc-fase-3">Revisão</span></li>
+                <li><span class="barras-ponto fase-4"></span><span id="orc-fase-4">Entrega</span></li>
+              </ul>
+            </div>
             <button class="botao botao-contorno" type="button" id="orc-levar">Levar este orçamento para o convite</button>
             <p class="folha-aviso">Valores e prazos inventados para a demonstração. Nenhum pedido é enviado.</p>
           </aside>
+          </div>
         </div>
       </div>
     </section>
@@ -138,6 +162,7 @@
     <section class="secao secao-escura" id="trabalhos" aria-labelledby="titulo-trabalhos">
       <div class="miolo">
         <header class="cabeca">
+          <p class="sobretitulo"><span>Trabalhos</span><span class="sobretitulo-traco" aria-hidden="true"></span><span>Mural com visor</span></p>
           <h2 id="titulo-trabalhos">Trabalhos feitos</h2>
           <p>Filtre por tipo e toque em um trabalho para abrir o visor. O visor é de mentira: ele só anima a barra de reprodução, não há vídeo de verdade.</p>
         </header>
@@ -151,12 +176,14 @@
     <section class="secao" id="agenda" aria-labelledby="titulo-agenda">
       <div class="miolo">
         <header class="cabeca">
+          <p class="sobretitulo"><span>Agenda</span><span class="sobretitulo-traco" aria-hidden="true"></span><span>Datas livres</span></p>
           <h2 id="titulo-agenda">Datas livres na minha agenda</h2>
           <p>Toque em um dia livre, escolha o período e faça uma pré-reserva. É uma simulação: ninguém recebe o seu pedido.</p>
         </header>
 
         <div class="agenda">
           <div class="cal" id="cal">
+            <p class="status status-cal" aria-hidden="true"><span class="status-ponto"></span>Agenda simulada</p>
             <div class="cal-topo">
               <button class="cal-seta" type="button" id="cal-ant" aria-label="Mês anterior">&lsaquo;</button>
               <h3 class="cal-mes" id="cal-mes" aria-live="polite"></h3>
@@ -198,12 +225,15 @@
     <section class="secao secao-folha" id="convite" aria-labelledby="titulo-convite">
       <div class="miolo">
         <header class="cabeca">
+          <p class="sobretitulo"><span>Convite</span><span class="sobretitulo-traco" aria-hidden="true"></span><span>Resumo na tela</span></p>
           <h2 id="titulo-convite">Me convide</h2>
           <p>Conte o que você quer fazer. Ao enviar, o resumo aparece aqui mesmo na tela. Nada sai do seu aparelho.</p>
         </header>
 
         <div class="convite">
           <form class="convite-form folha-papel" id="convite-form" novalidate>
+            <fieldset class="etapa">
+            <legend><span class="etapa-num">Etapa 1</span> · Quem é você</legend>
             <div class="campo">
               <label for="c-nome">Seu nome</label>
               <input id="c-nome" name="nome" type="text" autocomplete="name" aria-describedby="e-nome">
@@ -219,6 +249,9 @@
               <input id="c-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="e-tel">
               <p class="erro" id="e-tel" hidden></p>
             </div>
+            </fieldset>
+            <fieldset class="etapa">
+            <legend><span class="etapa-num">Etapa 2</span> · O evento</legend>
             <div class="campo">
               <label for="c-empresa">Empresa ou evento</label>
               <input id="c-empresa" name="empresa" type="text" autocomplete="organization" aria-describedby="e-empresa">
@@ -234,6 +267,9 @@
               </select>
               <p class="erro" id="e-assunto" hidden></p>
             </div>
+            </fieldset>
+            <fieldset class="etapa">
+            <legend><span class="etapa-num">Etapa 3</span> · A conversa</legend>
             <div class="campo">
               <label for="c-mensagem">Conte em poucas linhas</label>
               <textarea id="c-mensagem" name="mensagem" rows="5" aria-describedby="e-mensagem"></textarea>
@@ -241,10 +277,14 @@
             </div>
             <label class="marcar"><input type="checkbox" id="c-aceite" name="aceite" aria-describedby="e-aceite"><span>Entendo que este site é uma demonstração e que nada será enviado.</span></label>
             <p class="erro" id="e-aceite" hidden></p>
+            </fieldset>
             <button class="botao botao-principal" type="submit">Ver o resumo do convite</button>
           </form>
 
           <div class="resumo" id="resumo" tabindex="-1" aria-live="polite">
+            <figure class="resumo-foto">
+              <img src="img/bastidores-edicao.webp" width="1456" height="970" alt="Mesa de edição de vídeo em sala escura: dois monitores com linha do tempo desfocada, teclado, fones e uma luz vermelha pequena acesa em um aparelho." loading="lazy" decoding="async">
+            </figure>
             <p class="resumo-vazio" id="resumo-vazio">O resumo do seu convite vai aparecer aqui.</p>
             <div id="resumo-corpo" hidden>
               <h3>Resumo do convite</h3>
@@ -260,6 +300,7 @@
     <section class="secao secao-como" id="como-funciona" aria-labelledby="titulo-como">
       <div class="miolo como">
         <header class="cabeca">
+          <p class="sobretitulo"><span>Como funciona</span><span class="sobretitulo-traco" aria-hidden="true"></span><span>Por dentro do site</span></p>
           <h2 id="titulo-como">Como isto funciona</h2>
         </header>
         <div class="como-colunas">
@@ -291,10 +332,34 @@
   </main>
 
   <footer class="rodape">
-    <div class="miolo rodape-miolo">
-      <p class="rodape-nome">Ponto Vermelho</p>
-      <p>Palestras e vídeos, Cuiabá, Mato Grosso. Tudo neste site é fictício.</p>
-      <p>Site de demonstração feito pela <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a></p>
+    <div class="miolo">
+      <div class="rodape-cartao vidro">
+        <div class="rodape-col">
+          <p class="rodape-nome">Ponto Vermelho</p>
+          <p>Palestras e vídeos, Cuiabá, Mato Grosso.</p>
+        </div>
+        <nav class="rodape-col" aria-labelledby="rodape-t1">
+          <h2 class="rodape-titulo" id="rodape-t1">Orçamento e trabalhos</h2>
+          <ul>
+            <li><a href="#orcamento">Montar um orçamento</a></li>
+            <li><a href="#trabalhos">Ver o mural de trabalhos</a></li>
+          </ul>
+        </nav>
+        <nav class="rodape-col" aria-labelledby="rodape-t2">
+          <h2 class="rodape-titulo" id="rodape-t2">Agenda e convite</h2>
+          <ul>
+            <li><a href="#agenda">Ver datas livres</a></li>
+            <li><a href="#convite">Me convidar</a></li>
+          </ul>
+        </nav>
+        <div class="rodape-col">
+          <h2 class="rodape-titulo">Como funciona</h2>
+          <ul>
+            <li><a href="#como-funciona">Como isto funciona</a></li>
+          </ul>
+          <p>Tudo neste site é fictício. Site de demonstração feito pela <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a></p>
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -306,12 +371,15 @@
       <h3 id="visor-titulo"></h3>
       <p class="visor-meta" id="visor-meta"></p>
       <div class="visor-tela">
-        <img id="visor-img" src="img/hero.webp" alt="" width="1280" height="720">
-        <span class="visor-tempo" id="visor-tempo">00:00 / 00:00</span>
-      </div>
-      <div class="visor-linha" aria-hidden="true">
-        <div class="visor-clipes"></div>
-        <div class="visor-cabeca" id="visor-cabeca"></div>
+        <span class="visor-pontos" aria-hidden="true"></span>
+        <div class="visor-janela">
+          <img id="visor-img" src="img/hero.webp" alt="" width="1456" height="816" decoding="async">
+          <span class="visor-tempo" id="visor-tempo">00:00 / 00:00</span>
+        </div>
+        <div class="visor-linha" aria-hidden="true">
+          <div class="visor-clipes"></div>
+          <div class="visor-cabeca" id="visor-cabeca"></div>
+        </div>
       </div>
       <div class="visor-controles">
         <button class="botao botao-contorno" type="button" id="visor-play">Reproduzir</button>

@@ -10,7 +10,7 @@ Endereço publicado (quando eu publicar): https://toshiro01001.github.io/palestr
 
 ## O que o site faz, em português simples
 
-1. **Orçamento**: você escolhe se quer uma palestra ou um vídeo, mexe nas opções e vê o preço total e o prazo na hora, numa folha de orçamento.
+1. **Orçamento**: você escolhe se quer uma palestra ou um vídeo, mexe nas opções e vê o preço total e o prazo na hora, numa folha de orçamento. Um gráfico de barras mostra o prazo semana a semana (gravação, edição, revisão e entrega no vídeo; briefing, preparação, ensaio e o dia da palestra).
 2. **Trabalhos**: um mural com vídeos e palestras já feitas. Você filtra por tipo e abre um visor. O visor é de mentira: a barra anda, mas não existe vídeo.
 3. **Agenda**: um calendário com as datas livres. Você escolhe um dia, o período e faz uma pré-reserva de brincadeira.
 4. **Convite**: um formulário que confere se você preencheu direito e mostra um resumo na tela.
@@ -40,6 +40,22 @@ No celular:
 |---|---|---|---|---|---|
 | ![Abertura no celular](docs/capa-celular.webp) | ![Orçamento no celular](docs/celular-orcamento.webp) | ![Mural no celular](docs/celular-mural.webp) | ![Visor no celular](docs/celular-visor.webp) | ![Agenda no celular](docs/celular-agenda.webp) | ![Convite no celular](docs/celular-convite.webp) |
 
+## Imagens
+
+**As fotos deste site são geradas por IA no Canva e são ilustrativas.** Nenhuma mostra uma pessoa, um evento ou um cliente real.
+
+| Arquivo | Tamanho | Onde aparece |
+|---|---|---|
+| `img/hero.webp` | 1620x1080 (3:2) | Abertura: microfone de estúdio e câmera com a luz de gravação |
+| `img/mural-palestra.webp` | 1456x816 (16:9) | Mural: trabalhos "Abertura do encontro de varejo" e "Conversa difícil também se treina" (com outro recorte) |
+| `img/mural-institucional.webp` | 1456x816 (16:9) | Mural: "Um dia na cooperativa" e "Como fazemos a ração" (com outro recorte) |
+| `img/mural-evento.webp` | 1456x816 (16:9) | Mural: "Feira de negócios, três dias em dois minutos" e "Jantar de 20 anos da empresa" (com outro recorte) |
+| `img/mural-aula.webp` | 1456x816 (16:9) | Mural: "Curso de atendimento, módulo 1" e, ampliada na banqueta, "Quem comprou fala sobre a obra" |
+| `img/bruno-palco.webp` | 1152x1440 (4:5) | Orçamento: palestrante no palco, acima da folha de orçamento |
+| `img/bastidores-edicao.webp` | 1456x970 (3:2) | Convite: fundo do resumo enquanto ele está vazio |
+
+Os arquivos `img/palestra-1.webp`, `img/palestra-2.webp`, `img/institucional-1.webp`, `img/institucional-2.webp`, `img/evento-1.webp`, `img/evento-2.webp`, `img/depoimento-1.webp` e `img/aula-1.webp` são as composições antigas e não são mais usados.
+
 ## Identidade visual, em resumo
 
 Fugi do palco preto com letreiro neon e da claquete. O site parece **a parede cinza de um estúdio de gravação**, com as peças do dia a dia da produção como interface: a folha de pauta, a régua de tempo do editor de vídeo, a cabeça de leitura da linha do tempo e a luz vermelha de "gravando".
@@ -48,7 +64,9 @@ Fugi do palco preto com letreiro neon e da claquete. O site parece **a parede ci
 - **Fontes**: Bricolage Grotesque (títulos e texto) e Courier Prime (tempos e rótulos, como roteiro). As duas são locais e têm licença SIL OFL.
 - **Por quê**: o vermelho marca o que está "ao vivo" naquele momento (o total, o filtro ativo, a cabeça de leitura, o dia escolhido). O resto fica quieto.
 
-O estudo completo, com tamanhos, regras e o prompt da foto do hero, está em [docs/identidade.md](docs/identidade.md).
+Na leva final o site ganhou componentes de dois design systems: o **Future UI** nas partes claras (a página dentro de um cartão de cantos grandes, formas flutuando sobre a foto, botões em pílula com véu, tiles de escolha, gráfico de barras e calendário de dias redondos) e o **Fluxora** nos blocos escuros (grade de 64px, cartões de vidro, rótulos de etapa, janela do visor e rodapé em quatro colunas).
+
+O estudo completo, com tamanhos, regras, o prompt da foto do hero e a lista dos componentes aplicados, está em [docs/identidade.md](docs/identidade.md).
 
 ## Como funciona por dentro
 
@@ -62,7 +80,8 @@ Cada função é um pequeno programa que roda no navegador de quem visita. Os pr
 - Orçamento de vídeo: `minutos x valor por minuto do tipo + diárias x valor da diária`, mais drone (por diária) e legendas (por minuto). O prazo soma dias úteis de edição e diz a data de entrega "se gravarmos hoje".
 - Visor do mural: `<dialog>` com controle deslizante e relógio simulado. Não existe arquivo de vídeo. Com movimento reduzido, o relógio avança de segundo em segundo.
 - Agenda: a regra de ocupação depende só da data, então o calendário é sempre igual. Pré-reservas em `localStorage` (chave `pv-prereservas`).
-- Imagens: `img/hero.webp` é uma foto gerada por IA no Canva (1620x1080). `tools/gerar-imagens.py` (Pillow) gera só os pôsteres do mural; o script ainda recria um hero provisório, que não deve ser usado no lugar da foto.
+- Imagens: todas as fotos são geradas por IA no Canva e ilustrativas (lista na seção Imagens, acima). `tools/gerar-imagens.py` é um script antigo (Pillow) que gerava as composições abstratas da primeira versão; elas não são mais usadas pelo site.
+- Gráfico do prazo: uma barra por semana, calculada junto com o orçamento. As alturas e o número de colunas entram por JavaScript (`element.style`), o que a CSP permite.
 - Acessibilidade: contraste AA, foco visível, navegação por teclado, `alt` nas imagens, `lang="pt-BR"`, rótulos em todos os campos e mensagens de erro ligadas aos campos.
 
 ## Como rodar

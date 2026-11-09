@@ -20,3 +20,16 @@ Vistoria curta feita antes de entregar o site. Escopo: tudo o que está neste re
 - A CSP em `<meta>` não cobre cabeçalhos HTTP como `frame-ancestors` e `X-Content-Type-Options`; o GitHub Pages não deixa configurá-los. Em um servidor próprio, vale repetir a CSP como cabeçalho.
 - O `localStorage` é legível por qualquer pessoa que use o mesmo navegador e perfil. Por isso só guarda dados sem valor (data e período fictícios).
 - Se o site virar um sistema de verdade (receber convites, cobrar), será preciso um servidor, validação do lado dele, proteção contra robôs e uma política de privacidade. Nada disso existe aqui de propósito.
+
+## Leva final: 08/11/2026
+
+O que mudou nesta leva e o que foi conferido de novo:
+
+| Ponto | Resultado |
+|---|---|
+| CSP | Continua a mesma e restritiva (`default-src 'self'`, `script-src 'self'`, `style-src 'self'`, `connect-src 'none'`, `form-action 'none'`). Nenhum script ou estilo embutido e nenhum atributo `style` no HTML. A grade dos blocos escuros é um SVG em `data:` dentro do CSS, coberto por `img-src 'self' data:`. As alturas das barras do prazo e a posição da cabeça de leitura do visor entram por `element.style` (CSSOM), que a CSP permite. |
+| Recursos externos | Nenhum. As formas flutuantes, o vidro, a grade e o gráfico são CSS e JavaScript próprios, sem biblioteca, sem fonte externa e sem script de terceiros. O teste automatizado confirma que nenhum pedido sai do site. |
+| Escrita na página | Nenhum `innerHTML` novo com conteúdo. O gráfico de barras e o rótulo do tipo no mural são montados com `createElement` e `textContent`; o único `innerHTML` novo é `""` para esvaziar a grade do gráfico. |
+| Dados pessoais | Nenhum. As fotos são geradas por IA no Canva, ilustrativas, sem pessoas reais identificáveis. Nomes, clientes, datas e preços continuam inventados. |
+| `localStorage` | Continua sendo usado só na agenda, na chave `pv-prereservas` (data, período e código da pré-reserva). Nada desta leva grava no navegador. |
+| Imagens | As fotos de `img/` agora são do Canva (lista no README). As composições antigas feitas com Pillow ficaram sem uso. |
